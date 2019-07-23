@@ -236,7 +236,8 @@ shinyServer(function(input, output, session) {
              updateButton(session, "submit", disabled = TRUE)
              updateButton(session, "nextq", disabled = TRUE)
              updateButton(session, "restart", disabled = FALSE)
-           }
+        }
+        updateButton(session, "submit", disabled = TRUE)
       }
       else if(selected == 'E'){
         print("error")
@@ -258,6 +259,7 @@ shinyServer(function(input, output, session) {
           updateButton(session, "nextq", disabled = TRUE)
           updateButton(session, "restart", disabled = FALSE)
         }
+        updateButton(session, "submit", disabled = TRUE)S
       }
     updateButton(session, 'restart', disabled=FALSE)
     output$mark <- renderUI({
