@@ -8,10 +8,10 @@ library(discrimARTs)
 library(leaflet)
 library(raster)
 library(shinyWidgets)
-
+source("helpers.R")
 shinyUI(dashboardPage(skin="blue",
               #Title
-              dashboardHeader(title="Practice",titleWidth=250,
+              dashboardHeader(title="Probability Rules",titleWidth=250,
                               tags$li(class="dropdown",
                                       tags$a(href='https://shinyapps.science.psu.edu/',
                                              icon("home", lib = "font-awesome"))),
@@ -24,7 +24,7 @@ shinyUI(dashboardPage(skin="blue",
                             
                             menuItem("Overview", tabName = "information", icon = icon("dashboard")),
                             menuItem("Pre-requisites", tabName = "concepts", icon = icon("book")),
-                            menuItem("Concept Check Game", tabName = "test", icon = icon("gamepad"))
+                            menuItem("Game", tabName = "test", icon = icon("gamepad"))
                 )),
               
               #Content within the tabs
@@ -47,13 +47,13 @@ shinyUI(dashboardPage(skin="blue",
                           h4("This app quizzes your knowledge of distribution application using a hangman game format."),
                           br(),
                           h3(strong("Instructions:")),
-                          h4(tags$li("There are some instructions")),
-                          # h4(tags$li("Click the tic-tac-toe image to begin.")),
-                          # h4(tags$li("To play the game, you will select the square that you want to place an X.")),
-                          # h4(tags$li("Then you will answer the question that is given, if you get it right, an X will go in the square you selected - if not, an O will go in that spot.")),
-                          # h4(tags$li("You can only submit an answer after choosing a spot on the image.")),
-                          # h4(tags$li("You are playing as the X's, the object of the game is to get 3 X's in a row. (i.e., When you have 3 X's line up horizontally, vertically, or diagonally).")),
-                       
+                          h4(tags$li("You'll start this game with a little man on the top of the tree, if you provide a wrong answer, the little man will fall to a lower branch, and when the little man fall on the floor, then you have lost this game. If you get 10 questions correct without the little man fall to the floor, you have win the game and save the little man!")),
+                          h4(tags$li("Read the given text before you make your choice. Make sure you understand the scenario text provided.")),
+                          h4(tags$li("If you need some extra help, click the 'hint'.")),
+                          h4(tags$li("Please select only one choice, otherwise there'll be an error.")),
+                          h4(tags$li("After you select the choice, click 'Submit' to check your answer.")),
+                          h4(tags$li("Once you click 'Submit', you cannot revise your answer. You can only click 'Next Question' to move on your challenge.")),
+                          
                           div(style = "text-align: center;",
                               bsButton(inputId = "go", label = "G O !", size = "large",icon = icon("bolt"), class="circle grow")
                           ),
@@ -68,30 +68,26 @@ shinyUI(dashboardPage(skin="blue",
                           fluidRow(
                             div(style = "text-align: center;",
                                 h3("Here are some concepts you may want to review before doing the practice")
-                              
                             )
                           ),
                           withMathJax(),
                           fluidRow(with=12,
-                            #theme = "Feature.css",
                             box(title = strong("General expectation equations"),solidHeader = TRUE, status="primary", width = 12, background = NULL, collapsible=TRUE,
-                                wellPanel(style = "background-color: #d3efff",with=12,
-                                          fluidRow(width=12,
-                                                   column(width=3,
-                                                          h5('$$E[∑{a_{i}X_{i}}]	=	∑{a_{i}E(X_{i}})$$')),
-                                                   column(width=3,
-                                                          h5('$$Var[aX+b]=a^2Var(X)$$')),
-                                                   column(width=3,
-                                                          h5('$$Var(X) = E[X^2]	– [E(X)]^2$$')),
-                                                   column(width=3,
-                                                          h5('$$Cov(aX,bY)=abCov(X,Y)$$'))),
+                               column(width=4,
+                                 wellPanel(style = "background-color: #d3efff",
                                           fluidRow(width=12, style = "text-align:left",
-                                                   column(width=4, 
-                                                          h5('$$Cov(X,Y) = E(XY)-E(X)E(Y)$$')),
-                                                   column(width=4,
-                                                          h5('$$Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)$$')),
-                                                   column(width=4,
-                                                          h5('$$Var(∑X_{i})	=	∑Var(X_{i})	+	2∑∑Cov(X_{i},X_{j})$$'))),
+                                                          h5('$$E[∑{a_{i}X_{i}}]	=	∑{a_{i}E(X_{i}})$$'),
+                                                          h5('$$Var[aX+b]=a^2Var(X)$$'),
+                                                          h5('$$Var(X) = E[X^2]	– [E(X)]^2$$'),
+                                                          h5('$$Cov(aX,bY)=abCov(X,Y)$$'),
+                                                          h5('$$Cov(X,Y) = E(XY)-E(X)E(Y)$$')
+                                                   ))),
+                               column(width=8,
+                                wellPanel(style = "background-color: #d3efff",
+                                          fluidRow(width=12, style = "text-align:left",
+                                                          h5('$$Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)$$'),
+                                                   
+                                                          h5('$$Var(∑X_{i})	=	∑Var(X_{i})	+	2∑∑Cov(X_{i},X_{j})$$')),
                                           fluidRow(width=12, style = "text-align:left",
                                                    column(width=4, 
                                                           h5('$$Mx(t)	=	E[X^{tX}]$$')),
@@ -100,15 +96,14 @@ shinyUI(dashboardPage(skin="blue",
                                                    column(width=4,
                                                           h5("$$Mx^{''}(0) = E[X^2]$$"))),
 
-                                            withMathJax(h5('\\(E[g(X)]	=	∑g(x)p(x)\\)  where	p(x) is the	pmf	of the	discrete	random	variable	X or	=	 g(x)f(x)dx in'))
-                                          ),
+                                            withMathJax(h5('\\(E[g(X)]	=	∑g(x)p(x)\\)  where	p(x) is the	pmf	of the	discrete	random	variable	X or	=	 g(x)f(x)dx in'))))),
+                                          
                                           tags$style(type='text/css', 
                                                      '#question {font-weight:bold;font-size: 20px;background-color: #EAF2F8;color: black;}',
-                                                     '.well { padding: 10px; margin-bottom: 15px; max-width: 2000px; }')
-                                )),
+                                                     '.well { padding: 0px; margin-bottom: 15px; max-width: 600000px; }')
+                                ),
                             box(title = strong("Discrete random variable"), solidHeader = TRUE, status="primary", width = 6, background = NULL, collapsible=TRUE,
                                 wellPanel(style = "background-color: #d3efff",
-                                    #h4(strong("General expectaction equations :")),
                                     fluidRow(width=12,
                                         column(width=6,
                                             h5('$$ f(x)	=	P(X=x)$$')),
@@ -175,14 +170,14 @@ shinyUI(dashboardPage(skin="blue",
                                          h5(strong("Normal random variable 	with	mean µ and standard	deviation σ:")),
                                          fluidRow(width=12,
                                                   column(width=6,
-                                                         h5("$$φ(x) =	{(σ\\sqrt{2pi}}exp{-(x-µ)^{2}/2σ^2)$$"),
+                                                          h5("$$φ(x)=\\frac{1}{σ\\sqrt{2\\pi}}exp{[\\frac{-(x-µ)^2}{2σ^2}]}$$"),
                                                          h5("$$	Var(X)	=	σ^2	$$")),
                                                   column(width=6,
                                                          h5("$$E(X)	=	µ	$$"),
                                                          h5("$$Mx(t) = exp(µt + 0.5(σt)^2$$")))
                                          )
                             ),
-                          br(),br(),br(),br(),br(),
+                          br(),
                           div(style = "text-align: center;",
                               bsButton(inputId = "ready", label = "I'm ready!", size = "large",icon = icon("bolt"), class="circle grow")
                           )
@@ -199,16 +194,35 @@ shinyUI(dashboardPage(skin="blue",
                                         tags$style(type='text/css', '#question {font-weight:bold;font-size: 25px;background-color: #EAF2F8;color: black;}','.well { padding: 12px; margin-bottom: 15px; max-width: 1000px; }')
                               ),
                               h3("Which expression addresses the question?",tags$li(style="display: inline-block;", circleButton("hint",icon = icon("question"), status = "myClass",size = "xs"))),
-                              wellPanel(style = "background-color: #EAF2F8",
-                                        radioButtons("choices", "",c("choice 1", "choice 2", "choice 3", "choice 4"),
-                                                     selected = NULL)),
+                              wellPanel(style = "background-color: #EAF2F8", width=8,
+                                        
+                                        fluidRow(width=12, 
+                                                 column(width=1,checkboxInput('answerA','',value=FALSE, width=NULL)),
+                                                 column(width=6,uiOutput('ansA'))
+                                                 ),
+                                        fluidRow(width=12, 
+                                                 column(width=1,checkboxInput('answerB','',value=FALSE, width=NULL)),
+                                                 column(width=6,uiOutput('ansB'))
+                                        ),
+                                        fluidRow(width=12, 
+                                                 column(width=1,checkboxInput('answerC','',value=FALSE, width=NULL)),
+                                                 column(width=6,uiOutput('ansC'))
+                                        ),
+                                        fluidRow(width=12, 
+                                                 column(width=1,checkboxInput('answerD','',value=FALSE, width=NULL)),
+                                                 column(width=6,uiOutput('ansD'))
+                                        ),
+                                        br(),br()
+
+                                        ),
+
                               fluidRow(width=12,
                                 column(1, uiOutput('mark')),
                                 column(3,
                                        bsButton('submit', "   Submit   ", size= "large", style="warning",disabled =FALSE)),
                                 
-                                column(2,
-                                       bsButton('nextq', "Next Question", size ="large", style="success",disabled=TRUE))
+                                column(3,
+                                       withBusyIndicatorUI(bsButton('nextq', "Next Question", size ="large", style="success",disabled=TRUE)))
                               ),
                               
                               br(),
@@ -234,7 +248,10 @@ shinyUI(dashboardPage(skin="blue",
                               ),
                               br(),
                               br(),
-                              br()
+                              br(),
+                              div(style = "text-align: center;",
+                                bsButton('restart', "Restart", size ="large", style="warning",disabled=TRUE)
+                                )
                             ),
                             position ="left"
                           ))
