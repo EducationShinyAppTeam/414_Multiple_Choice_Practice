@@ -11,7 +11,7 @@ library(shinyWidgets)
 source("helpers.R")
 shinyUI(dashboardPage(skin="blue",
               #Title
-              dashboardHeader(title="Probability Rules",titleWidth=250,
+              dashboardHeader(title="Probability Application",titleWidth=250,
                               tags$li(class="dropdown",
                                       tags$a(href='https://shinyapps.science.psu.edu/',
                                              icon("home", lib = "font-awesome"))),
@@ -47,10 +47,9 @@ shinyUI(dashboardPage(skin="blue",
                           h4("This app quizzes your knowledge of distribution application using a hangman game format."),
                           br(),
                           h3(strong("Instructions:")),
-                          h4(tags$li("You'll start this game with a little man on the top of the tree, if you provide a wrong answer, the little man will fall to a lower branch, and when the little man fall on the floor, then you have lost this game. If you get 10 questions correct without the little man fall to the floor, you have win the game and save the little man!")),
+                          h4(tags$li("You'll start this game with a little man on the top of a tree, and you are trying to prevent his fall to the ground. If you provide a wrong answer, he falls to a lower branch and eventually to the ground. If you get 10 questions correct before he falls to the ground, you have won the game and saved the little man!")),
                           h4(tags$li("Read the given text before you make your choice. Make sure you understand the scenario text provided.")),
-                          h4(tags$li("If you need some extra help, click the 'hint'.")),
-                          h4(tags$li("Please select only one choice, otherwise there'll be an error.")),
+                          h4(tags$li("If you need some extra help, click the 'hint' button (shown as a question mark symbol).")),
                           h4(tags$li("After you select the choice, click 'Submit' to check your answer.")),
                           h4(tags$li("Once you click 'Submit', you cannot revise your answer. You can only click 'Next Question' to move on your challenge.")),
                           
