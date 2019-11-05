@@ -104,7 +104,7 @@ shinyUI(dashboardPage(
         withMathJax(),
         fluidRow(div(
           style = "text-align: center;",
-          h3(
+          h2(
             "Here are some concepts you may want to review before doing the practice"
           )
         )),
@@ -123,20 +123,20 @@ shinyUI(dashboardPage(
                 style = "background-color: #d3efff",
                 fluidRow(
                   width = 12,
-                  style = "text-align:left",
+                  style = "text-align:center",
                   p(
                     '\\(\\text{E}\\left[\\sum_i{a_{i}X_{i}}\\right]=\\sum_i{a_{i}\\text{E}\\left[X_{i}\\right]}\\)'
-                  ),
+                  ),br(),
                   p(
                     '\\(\\text{Var}\\left[aX+b\\right]=a^2\\text{Var}\\left[X\\right]\\)'
                   ),
                   p(
                     '\\(\\text{Var}\\left[X\\right]=\\text{E}\\left[X^2\\right]-\\left(\\text{E}\\left[X\\right]\\right)^2\\)'
-                  ),
+                  ),br(),
                   p('\\(\\text{Cov}(aX,bY)=ab\\text{Cov}(X,Y)\\)'),
                   p(
                     '\\(\\text{Cov}(X,Y)=\\text{E}\\left[XY\\right]-\\text{E}\\left[X\\right]\\cdot\\text{E}\\left[Y\\right]\\)'
-                  )
+                  ),br()
                 )
               )
             ),
@@ -146,7 +146,7 @@ shinyUI(dashboardPage(
                 style = "background-color: #d3efff",
                 fluidRow(
                   width = 12,
-                  style = "text-align:left",
+                  style = "text-align:center",
                   p(
                     '\\(\\text{Var}\\left[X+Y\\right]=\\text{Var}\\left[X\\right]+\\text{Var}\\left[Y\\right]+2\\text{Cov}\\left(X,Y\\right)\\)'
                   ),
@@ -156,7 +156,7 @@ shinyUI(dashboardPage(
                 ),
                 fluidRow(
                   width = 12,
-                  style = "text-align:left",
+                  style = "text-align:center",
                   column(width = 4,
                          p(
                            '\\(M_X(t)=\\text{E}\\left[e^{tX}\\right]\\)'
@@ -192,11 +192,31 @@ shinyUI(dashboardPage(
           collapsible = TRUE,
           wellPanel(style = "background-color: #d3efff",
                     fluidRow(
+                      style = "text-align:center",
                       width = 12,
                       column(width = 6,
-                             h5('$$ f(x)	=	P(X=x)$$')),
+                             p('$$ f(x)	=	P(X=x)$$')),
                       column(width = 6,
-                             h5('$$ F(x) =	P[X≤x]$$'))
+                             p('$$ F(x) =	P[X≤x]$$'))
+                    )),
+          wellPanel(style = "background-color: #d3efff",
+                    h5(
+                      strong("Discrete Uniform distribution on the set\\(\\{x_{i},\\;i=1,2,\\ldots,k\\}\\)")
+                    ),
+                    fluidRow(
+                      width = 12,
+                      style = "text-align:center",
+                      column(
+                        width = 6,
+                        
+                        p("$$P[X=x_{i}]=1/k$$"),
+                        p("$$Var(X)=(k^{2}-1)/12$$")
+                        
+                      ),
+                      column(
+                        width = 6,
+                        p("$$E(X)=\\frac{k+1}{2}$$")
+                      )
                     )),
           wellPanel(style = "background-color: #d3efff",
                     h5(
@@ -204,15 +224,17 @@ shinyUI(dashboardPage(
                     ),
                     fluidRow(
                       width = 12,
+                      style = "text-align:center",
                       column(
                         width = 6,
-                        h5("$$f(x) =\\theta^{x}(1-θ)^{1-x}$$"),
-                        h5("$$Var(X)	=	n\\theta(1−\\theta)$$")
+                        
+                        p("$$f(x) =\\theta^{x}(1-θ)^{1-x}$$"),
+                        p("$$Var(X)	=	n\\theta(1−\\theta)$$")
                       ),
                       column(
                         width = 6,
-                        h5("$$E(X)	=	n\\theta$$"),
-                        h5("$$Mx(t)	=	[(1-\\theta) + θe^{t}$$")
+                        p("$$E(X)	=	n\\theta$$"),
+                        p("$$Mx(t)	=	(1-\\theta) + θe^{t}$$")
                       )
                     )),
           wellPanel(style = "background-color: #d3efff",
@@ -220,16 +242,17 @@ shinyUI(dashboardPage(
                       strong("Binomial random variable with parameters n and θ:")
                     ),
                     fluidRow(
+                      style = "text-align:center",
                       width = 12,
                       column(
                         width = 6,
-                        h5("$$f(x) =	[n!/x!(n-x)!]θ^{x}(1-θ)^{n-x}$$"),
-                        h5("$$Var(X)	=	n^{θ}(1−θ)$$")
+                        p("$$f(x) =	[n!/x!(n-x)!]θ^{x}(1-θ)^{n-x}$$"),
+                        p("$$Var(X)	=	n^{θ}(1−θ)$$")
                       ),
                       column(
                         width = 6,
-                        h5("$$E(X)	=	n^θ$$"),
-                        h5("$$Mx(t)	=	[(1-\\theta) + θe^{t}]^n$$")
+                        p("$$E(X)	=	n^θ$$"),
+                        p("$$Mx(t)	=	[(1-\\theta) + θe^{t}]^n$$")
                       )
                     )),
           wellPanel(style = "background-color: #d3efff",
@@ -237,18 +260,49 @@ shinyUI(dashboardPage(
                       strong("Geometric random variable with parameter θ:")
                     ),
                     fluidRow(
+                      style = "text-align:center",
                       width = 12,
                       column(
                         width = 6,
-                        h5("$$f(x) =θ(1-θ)^{x-1}$$"),
-                        h5("$$Var(X)	=	\\frac{(1-θ)}{θ^{2}}$$")
+                        p("$$f(x) =θ(1-θ)^{x-1}$$"),
+                        p("$$Var(X)	=	\\frac{(1-θ)}{θ^{2}}$$")
                       ),
                       column(
                         width = 6,
-                        h5("$$E(X)	=	\\frac{1}{θ}$$"),
-                        h5("$$Mx(t)	=	\\frac{θe^{t}}{[1-(1-θ)e^{t}]}$$")
+                        p("$$E(X)	=	\\frac{1}{θ}$$"),
+                        p("$$Mx(t)	=	\\frac{θe^{t}}{[1-(1-θ)e^{t}]}$$")
                       )
-                    ))
+                    )),
+          #Negative Bionomial
+          wellPanel(style = "background-color: #d3efff",
+                    tags$style(type='text/css', 
+                               '#question {font-weight:bold;font-size: 20px;background-color: #EAF2F8;color: black;}',
+                               '.well { padding: 10px; margin-bottom: 15px; max-width: 2000px; }'),
+                    h5(strong("Negative Bionomial random variable with parameters r and θ:")),
+                    fluidRow(width=12,
+                             style = "text-align:center",
+                             column(width=6,
+                                    p("$$f(x) =\\frac{(x-1)!}{(r-1)!(x-r)!}$$"),
+                                    p("$$Var(X)	=	\\frac{r(1-θ)}{θ^{2}}$$")),
+                             column(width=6,
+                                    p("$$E(X)	=	\\frac{r}{θ}$$"),
+                                    p("$$Mx(t)	=	(\\frac{θe^{t}}{1-(1-θ)e^{t}})^r$$")))
+          ),
+          #Poisson
+          wellPanel(style = "background-color: #d3efff",
+                    tags$style(type='text/css', 
+                               '#question {font-weight:bold;font-size: 20px;background-color: #EAF2F8;color: black;}',
+                               '.well { padding: 10px; margin-bottom: 15px; max-width: 2000px; }'),
+                    h5(strong("Poisson random variable with parameter λ:")),
+                    fluidRow(width=12,
+                             style = "text-align:center",
+                             column(width=6,
+                                    p("$$f(x) = (\\frac{λ^{x}}{x!})e^{-λ}$$"),
+                                    p("$$Var(X)	=	λ$$")),
+                             column(width=6,
+                                    p("$$E(X)	=	λ$$"),
+                                    p("$$Mx(t)	=	exp{λ(e^{t}-1)}$$")))
+          )
         ),
         box(
           title = strong("Continuous random variable"),
@@ -260,28 +314,29 @@ shinyUI(dashboardPage(
           wellPanel(style = "background-color: #d3efff",
                     fluidRow(
                       width = 12,
+                      style = "text-align:center",
                       column(width = 6,
-                             h5('$$ f(x)	=	P(X=x)$$')),
+                             p('$$ f(x)	=	P(X=x)$$')),
                       column(width = 6,
-                             div(
-                               style = "height:20px;", helpText('$$ F(a) = P(X≤a) = {∫^{a}_{−∞}}f(x)dx$$')
-                             ))
+                            p('$$ F(a) = P(X≤a) = {∫^{a}_{−∞}}f(x)dx$$')
+                             )
                     )),
           wellPanel(style = "background-color: #d3efff",
                     h5(
                       strong("Uniform random variable between A and B:")
                     ),
                     fluidRow(
+                      style = "text-align:center",
                       width = 12,
                       column(
                         width = 6,
-                        h5("$$f(x) =	\\frac{1}{(B-A)}$$"),
-                        h5("$$	Var(X)	=	\\frac{(B-A)^{2}}{12}	$$")
+                        p("$$f(x) =	\\frac{1}{(B-A)}$$"),
+                        p("$$	Var(X)	=	\\frac{(B-A)^{2}}{12}	$$")
                       ),
                       column(
                         width = 6,
-                        h5("$$E(X)	=	\\frac{(A+B)}{2}$$"),
-                        h5("$$Mx(t)	=\\frac{(e^{tB}- e^{tA})}{t(B-A)}$$")
+                        p("$$E(X)	=	\\frac{(A+B)}{2}$$"),
+                        p("$$Mx(t)	=\\frac{(e^{tB}- e^{tA})}{t(B-A)}$$")
                       )
                     )),
           wellPanel(style = "background-color: #d3efff",
@@ -289,35 +344,65 @@ shinyUI(dashboardPage(
                       strong("Normal random variable 	with	mean µ and standard	deviation σ:")
                     ),
                     fluidRow(
+                      style = "text-align:center",
                       width = 12,
                       column(
                         width = 6,
-                        h5(
+                        p(
                           "$$φ(x)=\\frac{1}{σ\\sqrt{2\\pi}}exp{[\\frac{-(x-µ)^2}{2σ^2}]}$$"
                         ),
-                        h5("$$	Var(X)	=	σ^2	$$")
+                        p("$$	Var(X)	=	σ^2	$$")
                       ),
                       column(width = 6,
-                             h5("$$E(X)	=	µ	$$"),
-                             h5("$$Mx(t) = exp(µt + 0.5(σt)^2$$"))
+                             p("$$E(X)	=	µ	$$"),
+                             p("$$Mx(t) = exp(µt + 0.5(σt)^2$$"))
                     )),
           wellPanel(style = "background-color: #d3efff",
                     h5(
                       strong("Exponential random variable with parameter λ:")
                     ),
                     fluidRow(
+                      style = "text-align:center",
                       width = 12,
                       column(
                         width = 6,
-                        h5("$$f(x) = λe^{-λx}$$"),
-                        h5("$$	Var(X)	=	\\frac{1}{λ^{2}}	$$")
+                        p("$$f(x) = λe^{-λx}$$"),
+                        p("$$	Var(X)	=	\\frac{1}{λ^{2}}	$$")
                       ),
                       column(
                         width = 6,
-                        h5("$$E(X)	=	\\frac{1}{λ}$$"),
-                        h5("$$Mx(t)	=\\frac{λ}{(λ-t)}$$")
+                        p("$$E(X)	=	\\frac{1}{λ}$$"),
+                        p("$$Mx(t)	=\\frac{λ}{(λ-t)}$$")
                       )
-                    ))
+                    )),
+          wellPanel(style = "background-color: #d3efff",
+                    tags$style(type='text/css', 
+                               '#question {font-weight:bold;font-size: 20px;background-color: #EAF2F8;color: black;}',
+                               '.well { padding: 10px; margin-bottom: 15px; max-width: 2000px; }'),
+                    h5(strong("Gamma random variable with parameters λ and α:")),
+                    fluidRow(width=12,
+                             style = "text-align:center",
+                             column(width=6,
+                                    p("$$f(x) =	\\frac{λe^{-λx}(λx)^{α-1}}{Γ(α)}$$"),
+                                    p("$$Var(X)	=	\\frac{α}{λ^{2}}$$")),
+                             column(width=6,
+                                    p("$$E(X)	=	\\frac{α}{λ}$$"),
+                                    p("$$Mx(t)	=	[\\frac{λ}{(λ-t)}]^{α}$$")))
+          ),
+          wellPanel(style = "background-color: #d3efff",
+                    tags$style(type='text/css', 
+                               '#question {font-weight:bold;font-size: 20px;background-color: #EAF2F8;color: black;}',
+                               '.well { padding: 10px; margin-bottom: 15px; max-width: 2000px; }'),
+                    h5(strong("Chi-square random	variable	with	k	degrees	of freedom:")),
+                    fluidRow(width=12,
+                             style = "text-align:center",
+                             column(width=6,
+                                    p("$$f(x) =	\\frac{0.5e^{\\frac{-x}{2}}(0.5x)^{\\frac{k-2}{2}}}{Γ(k/2)}$$"),
+                                    p("$$Var(X)	=	2k$$")),
+                             column(width=6,
+                                    p("$$E(X)	=	k$$"),
+                                    p("$$Mx(t)	=	{1-2t}^{\\frac{-k}{2}}$$")))
+          )
         ),
         br(),
         div(
@@ -358,13 +443,16 @@ shinyUI(dashboardPage(
               width = 8,
               
               fluidRow(
+                #style = "text-align:center",
                 width = 12,
                 withMathJax(),
+                column(12, offset=0,
                 radioGroupButtons(
                   inputId = "mc1",
-                  label = "Select the best answer",
+                  label = NULL,
                   status = 'game',
                   direction = 'vertical',
+                  selected = NULL,
                   checkIcon = list(yes = icon("check-square"),
                                    no = icon("square-o")),
                   choices = list("\\(\\frac{1}{4}\\)",
@@ -374,13 +462,14 @@ shinyUI(dashboardPage(
                   width = '100%',
                   justified = FALSE,
                   individual = FALSE
-                )
+                ))
               ),
               uiOutput('test1'),
-              uiOutput('test2'),
+              uiOutput('test2')
             ),     
             fluidRow(
               width = 12,
+              column(1, uiOutput('mark')),
               column(
                 1,
                 bsButton(
@@ -392,15 +481,13 @@ shinyUI(dashboardPage(
                 ),
                 offset = 0
               ),
-              column(4,
-                     withBusyIndicatorUI(
+              column(3,
                        bsButton(
                          'nextq',
                          "Next Question",
                          size = "large",
                          style = "success",
                          disabled = TRUE
-                       )
                      ),
                      offset = 2
                      ),
@@ -413,7 +500,7 @@ shinyUI(dashboardPage(
                   style = "warning",
                   disabled = FALSE
                 ),
-                offset = 0
+                offset = 1
               )
             ),
             tags$head(
@@ -428,7 +515,7 @@ shinyUI(dashboardPage(
             fluidRow(uiOutput("correct", align = 'center')),
             br(),
             br(),
-            fluidRow(uiOutput("distPlot", align = 'center')),
+            fluidRow(uiOutput("distPlot", align = 'center'))
           )
         )
       )

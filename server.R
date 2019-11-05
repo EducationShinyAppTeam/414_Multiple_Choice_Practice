@@ -63,6 +63,7 @@ shinyServer(function(input, output, session) {
         bank[id, "C"],
         bank[id, "D"]
       ),
+      selected = NULL,
       checkIcon = list(
         yes = icon("check-square"),
         no = icon("square-o")
@@ -75,8 +76,7 @@ shinyServer(function(input, output, session) {
     })
     value[["mistake"]] <<- 0
     value$correct <<- 0
-  }
-  )
+  })
   
   # Print out a question
   output$question <- renderUI({
